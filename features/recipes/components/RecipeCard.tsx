@@ -9,13 +9,13 @@ export function RecipeCard({ recipe }: Props) {
   const prepTime = recipe.prepTimeMinutes ?? recipe.cookTimeMinutes;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+    <article className="group flex flex-col overflow-hidden shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ">
       {recipe.imageUrl && (
         <Link
           href={`/recipes/${recipe.slug}`}
           className="block"
         >
-          <div className="relative h-40 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+          <div className="relative h-40 w-full overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900">
             <img
               src={recipe.imageUrl}
               alt={recipe.title}
@@ -50,14 +50,16 @@ export function RecipeCard({ recipe }: Props) {
                 )}
               </div>
               <div
-                className="flex items-center gap-2 text-xs font-medium text-foreground hover:underline"
+                className="flex justify-between items-center gap-2 text-xs font-medium text-foreground"
               >
                 {recipe.hasVideo && (
-                  <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
-                    Video
-                  </span>
+                  <>
+                    <span className="font-semibold tracking-wide text-red-600 dark:text-red-400">
+                      Video
+                    </span>
+                    <span className='bg-red-500 rounded-full w-2 h-2 block'></span>
+                  </>
                 )}
-                View recipe
               </div>
             </div>
           </div>
