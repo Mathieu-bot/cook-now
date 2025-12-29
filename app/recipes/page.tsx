@@ -72,7 +72,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
           No recipes found.
         </p>
       ) : (
-        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
