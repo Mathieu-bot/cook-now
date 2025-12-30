@@ -2,14 +2,92 @@ import { prisma } from '@/lib/db';
 import type { IngredientDetail } from './ingredients.types';
 import type { RecipeSummary } from '../recipes/recipes.types';
 
+export type IngredientSummary = {
+  id: string;
+  name: string;
+  description: string | null;
+  imageUrl: string | null;
+  type: string | null;
+  recipesCount: number;
+};
+
+export type ListIngredientsResult = {
+  data: IngredientSummary[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
+};
+
+export type ListIngredientsParams = {
+  page: number;
+  pageSize: number;
+  q?: string | null;
+};
+
+export async function listIngredients({
+  page,
+  pageSize,
+  q,
+}: ListIngredientsParams): Promise<ListIngredientsResult> {
+  const where: any = {};
+
+  if (q && q.trim().length > 0) {
+    const value = q.trim();
+    where.OR = [
+      { name: { contains: value, mode: 'insensitive' } },
+      { description: { contains: value, mode: 'insensitive' } },
+    ];
+  }
+
+  const [total, ingredients] = await Promise.all([
+    prisma.ingredient.count({ where }),
+    prisma.ingredient.findMany({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      orderBy: { name: 'asc' },
+      include: {
+        recipes: true,
+      },
+    }),
+  ]);
+
+  const totalPages = Math.max(Math.ceil(total / pageSize), 1);
+
+  const data: IngredientSummary[] = ingredients.map((ingredient) => ({
+    id: ingredient.id,
+    name: ingredient.name,
+    description: ingredient.description ?? null,
+    imageUrl: ingredient.imageUrl ?? null,
+    type: ingredient.type ?? null,
+    recipesCount: ingredient.recipes.length,
+  }));
+
+  return {
+    data,
+    pagination: {
+      page,
+      pageSize,
+      total,
+      totalPages,
+    },
+  };
+}
+
 export async function getIngredientByName(name: string): Promise<IngredientDetail | null> {
   const trimmed = name.trim();
   if (!trimmed) return null;
 
-  const normalizedName = trimmed.toLowerCase();
-
-  const ingredient = await prisma.ingredient.findUnique({
-    where: { name: normalizedName },
+  const ingredient = await prisma.ingredient.findFirst({
+    where: {
+      name: {
+        equals: trimmed,
+        mode: 'insensitive',
+      },
+    },
     include: {
       recipes: {
         include: {
