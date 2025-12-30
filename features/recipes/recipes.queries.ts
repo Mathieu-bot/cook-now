@@ -4,6 +4,7 @@ import type {
   RecipeDetail,
   RecipeListResult,
   RecipeSummary,
+  CookNowSuggestion,
 } from './recipes.types';
 
 export type ListRecipesParams = {
@@ -46,7 +47,7 @@ export async function listRecipes({
     where.categories = {
       some: {
         category: {
-          name: { equals: value, mode: 'insensitive' },
+          name: { contains: value, mode: 'insensitive' },
         },
       },
     };
@@ -66,7 +67,6 @@ export async function listRecipes({
   if (typeof maxCookTime === 'number' && !Number.isNaN(maxCookTime)) {
     where.cookTimeMinutes = { lte: maxCookTime };
   }
-
   const [total, recipes] = await Promise.all([
     prisma.recipe.count({ where }),
     prisma.recipe.findMany({
@@ -211,4 +211,121 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeDetail | null
   };
 
   return detail;
+}
+
+export type SuggestRecipesFromIngredientsParams = {
+	ingredients: string[];
+	limit?: number;
+};
+
+export async function suggestRecipesFromIngredients({
+	ingredients,
+	limit = 24,
+}: SuggestRecipesFromIngredientsParams): Promise<CookNowSuggestion[]> {
+	const normalized = Array.from(
+		new Set(
+			(ingredients ?? [])
+				.map((name) => name.trim())
+				.filter((name) => name.length > 0),
+		),
+	);
+
+	if (normalized.length === 0) {
+		return [];
+	}
+
+	const recipes = await prisma.recipe.findMany({
+		where: {
+			ingredients: {
+				some: {
+					ingredient: {
+						name: {
+							in: normalized,
+							mode: 'insensitive',
+						},
+					},
+				},
+			},
+		},
+		select: {
+			id: true,
+			slug: true,
+			title: true,
+			summary: true,
+			imageUrl: true,
+			prepTimeMinutes: true,
+			cookTimeMinutes: true,
+			difficulty: true,
+			ingredients: {
+				select: {
+					ingredient: {
+						select: {
+							name: true,
+						},
+					},
+				},
+			},
+			categories: {
+				take: 1,
+				orderBy: {
+					category: {
+						name: 'asc',
+					},
+				},
+				select: {
+					category: {
+						select: {
+							name: true,
+						},
+					},
+				},
+			},
+			videos: {
+				select: { id: true },
+				take: 1,
+			},
+		},
+	});
+
+	const normalizedLower = normalized.map((name) => name.toLowerCase());
+
+	const scored: CookNowSuggestion[] = recipes
+		.map((recipe) => {
+			const ingredientNames = recipe.ingredients.map((ri) =>
+				ri.ingredient.name.toLowerCase(),
+			);
+			const uniqueIngredientNames = Array.from(new Set(ingredientNames));
+			const matchCount = normalizedLower.filter((name) =>
+				uniqueIngredientNames.includes(name),
+			).length;
+			const totalIngredients = uniqueIngredientNames.length;
+
+			const suggestion: CookNowSuggestion = {
+				id: recipe.id,
+				slug: recipe.slug,
+				title: recipe.title,
+				summary: recipe.summary ?? null,
+				imageUrl: recipe.imageUrl ?? null,
+				prepTimeMinutes: recipe.prepTimeMinutes ?? null,
+				cookTimeMinutes: recipe.cookTimeMinutes ?? null,
+				difficulty: recipe.difficulty ?? null,
+				primaryCategory:
+					recipe.categories[0]?.category?.name ?? null,
+				hasVideo: (recipe.videos?.length ?? 0) > 0,
+				matchCount,
+				totalIngredients,
+			};
+
+			return suggestion;
+		})
+		.filter((s) => s.matchCount > 0);
+
+	scored.sort((a, b) => {
+		if (b.matchCount !== a.matchCount) {
+			return b.matchCount - a.matchCount;
+		}
+		return a.totalIngredients - b.totalIngredients;
+	});
+
+	return scored.slice(0, limit);
 }

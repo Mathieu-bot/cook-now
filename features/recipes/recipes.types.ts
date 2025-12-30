@@ -11,6 +11,11 @@ export type RecipeSummary = {
   hasVideo?: boolean;
 };
 
+export type CookNowSuggestion = RecipeSummary & {
+  matchCount: number;
+  totalIngredients: number;
+};
+
 export type PaginationMeta = {
   page: number;
   pageSize: number;
