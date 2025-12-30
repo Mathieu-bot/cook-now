@@ -12,7 +12,7 @@ export function IngredientHeader({ ingredient, displayName }: Props) {
       <div className="space-y-3">
         <div className="space-y-1">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-            Ingredient
+            Ingredient spotlight
           </p>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
             {displayName}
@@ -27,8 +27,8 @@ export function IngredientHeader({ ingredient, displayName }: Props) {
           {ingredient.recipesCount > 0 && (
             <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
               {ingredient.recipesCount === 1
-                ? 'Used in 1 recipe'
-                : `Used in ${ingredient.recipesCount} recipes`}
+                ? 'Stars in 1 recipe'
+                : `Stars in ${ingredient.recipesCount} recipes`}
             </span>
           )}
           {ingredient.videoRecipesCount > 0 && (
@@ -66,7 +66,7 @@ export function IngredientHeader({ ingredient, displayName }: Props) {
           href={`/recipes?ingredient=${encodeURIComponent(ingredient.name)}`}
           className="inline-flex items-center justify-center rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900"
         >
-          Browse recipes with {displayName}
+          Cook with {displayName}
         </Link>
       </div>
     </header>
