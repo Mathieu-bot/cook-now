@@ -8,7 +8,10 @@ type Params = {
 
 export async function GET(_request: Request, { params }: Params) {
   const resolvedParams = await params;
-  const ingredient = await getIngredientByName(resolvedParams.name);
+  const rawName = resolvedParams.name ?? '';
+  const decodedName = decodeURIComponent(rawName);
+
+  const ingredient = await getIngredientByName(decodedName);
 
   if (!ingredient) {
     return new Response('Ingredient not found', { status: 404 });
