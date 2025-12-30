@@ -24,9 +24,10 @@ function formatIngredientName(name: string): string {
 
 export default async function IngredientPage({ params }: PageProps) {
   const resolvedParams = await params;
-  const ingredientNameParam = resolvedParams.name;
+  const rawName = resolvedParams.name ?? '';
+  const decodedName = decodeURIComponent(rawName);
 
-  const ingredient = await getIngredientByName(ingredientNameParam);
+  const ingredient = await getIngredientByName(decodedName);
 
   if (!ingredient) notFound();
 
