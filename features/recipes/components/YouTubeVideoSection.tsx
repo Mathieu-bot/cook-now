@@ -24,7 +24,7 @@ function FloatingVideoContainer({ video }: { video: RecipeVideoForSection }) {
             onClick={() => setFloating(true)}
             className="rounded-full bg-zinc-200 px-3 py-1 text-[11px] font-medium text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
           >
-            Détacher le lecteur
+            Use in floating player
           </button>
         )}
       </div>
@@ -64,7 +64,7 @@ function FloatingVideoContainer({ video }: { video: RecipeVideoForSection }) {
 
       {isFloating && (
         <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          La vidéo est en lecture dans le mini lecteur.
+          The video is playing in the floating player. Drag to reposition or click the × to close.
         </p>
       )}
     </>
