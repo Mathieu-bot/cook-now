@@ -1,75 +1,112 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useRecipeFilters } from '../hooks/useRecipeFilters';
 
-const DIFFICULTY_OPTIONS = [
-  { value: '', label: 'All difficulties' },
-  { value: 'easy', label: 'Easy' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'hard', label: 'Hard' },
-];
-
 export function RecipeFiltersBar() {
-  const { filters, setFilters } = useRecipeFilters();
+  const {
+    filters,
+    setFilters,
+    clearAllFilters,
+    hasActiveFilters,
+    activeFiltersCount,
+  } = useRecipeFilters();
+
+  const [categoryInput, setCategoryInput] = useState(filters.category ?? '');
+  const [ingredientInput, setIngredientInput] = useState(filters.ingredient ?? '');
+
+  useEffect(() => {
+    setCategoryInput(filters.category ?? '');
+  }, [filters.category]);
+
+  useEffect(() => {
+    setIngredientInput(filters.ingredient ?? '');
+  }, [filters.ingredient]);
 
   return (
-    <section className="mt-4 flex flex-wrap gap-3 text-sm text-zinc-700 dark:text-zinc-200">
-      <select
-        value={filters.difficulty ?? ''}
-        onChange={(event) =>
-          setFilters(
-            { difficulty: event.target.value || undefined },
-            { resetPage: true },
-          )
-        }
-        className="h-9 rounded-md border border-zinc-300 bg-white px-2 text-xs shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
-      >
-        {DIFFICULTY_OPTIONS.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
+    <section className="mt-4 rounded-lg border border-zinc-200 bg-white/70 p-3 text-xs text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/60 dark:text-zinc-200">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
+            Filters
+          </p>
+          {hasActiveFilters && (
+            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+              {activeFiltersCount} active
+            </span>
+          )}
+        </div>
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={clearAllFilters}
+            className="text-[11px] font-medium text-zinc-500 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-zinc-100"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
 
-      <input
-        type="text"
-        placeholder="Category"
-        value={filters.category ?? ''}
-        onChange={(event) =>
-          setFilters(
-            { category: event.target.value || undefined },
-            { resetPage: true },
-          )
-        }
-        className="h-9 min-w-[140px] rounded-md border border-zinc-300 bg-white px-2 text-xs shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
-      />
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <input
+          type="text"
+          placeholder="Category"
+          value={categoryInput}
+          onChange={(event) => {
+            const value = event.target.value;
+            setCategoryInput(value);
+            setFilters(
+              { category: value || undefined },
+              { resetPage: true },
+            );
+          }}
+          className="h-9 min-w-[140px] rounded-full border border-zinc-300 bg-white px-3 text-xs shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900"
+        />
 
-      <input
-        type="text"
-        placeholder="Ingredient"
-        value={filters.ingredient ?? ''}
-        onChange={(event) =>
-          setFilters(
-            { ingredient: event.target.value || undefined },
-            { resetPage: true },
-          )
-        }
-        className="h-9 min-w-[160px] rounded-md border border-zinc-300 bg-white px-2 text-xs shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
-      />
+        <input
+          type="text"
+          placeholder="Ingredient"
+          value={ingredientInput}
+          onChange={(event) => {
+            const value = event.target.value;
+            setIngredientInput(value);
+            setFilters(
+              { ingredient: value || undefined },
+              { resetPage: true },
+            );
+          }}
+          className="h-9 min-w-[160px] rounded-full border border-zinc-300 bg-white px-3 text-xs shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900"
+        />
+      </div>
 
-      <input
-        type="number"
-        min={0}
-        placeholder="Max cook time (min)"
-        value={filters.maxCookTime ?? ''}
-        onChange={(event) => {
-          const raw = event.target.value;
-          const n = raw ? Number(raw) : undefined;
-          const value = n !== undefined && !Number.isNaN(n) ? n : undefined;
-          setFilters({ maxCookTime: value }, { resetPage: true });
-        }}
-        className="h-9 w-40 rounded-md border border-zinc-300 bg-white px-2 text-xs shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
-      />
+      {hasActiveFilters && (
+        <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-zinc-600 dark:text-zinc-300">
+          {filters.category && (
+            <button
+              type="button"
+              onClick={() =>
+                setFilters({ category: '' }, { resetPage: true })
+              }
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+            >
+              <span>Category: {filters.category}</span>
+              <span className="text-xs">×</span>
+            </button>
+          )}
+          {filters.ingredient && (
+            <button
+              type="button"
+              onClick={() =>
+                setFilters({ ingredient: '' }, { resetPage: true })
+              }
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+            >
+              <span>Ingredient: {filters.ingredient}</span>
+              <span className="text-xs">×</span>
+            </button>
+          )}
+        </div>
+      )}
     </section>
   );
 }
