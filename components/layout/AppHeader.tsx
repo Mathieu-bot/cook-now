@@ -8,8 +8,14 @@ export function AppHeader() {
           Cook Now
         </Link>
         <nav className="flex items-center gap-4 text-sm text-zinc-600 dark:text-zinc-300">
+          <Link href="/cook-now" className="hover:text-zinc-900 dark:hover:text-zinc-50">
+            Cook now
+          </Link>
           <Link href="/recipes" className="hover:text-zinc-900 dark:hover:text-zinc-50">
             Recipes
+          </Link>
+          <Link href="/ingredients" className="hover:text-zinc-900 dark:hover:text-zinc-50">
+            Ingredients
           </Link>
         </nav>
       </div>
