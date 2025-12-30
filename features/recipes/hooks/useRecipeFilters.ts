@@ -40,41 +40,70 @@ export function useRecipeFilters() {
 
   const setFilters = useCallback(
     (next: Partial<RecipeFilters>, options?: { resetPage?: boolean }) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const merged: RecipeFilters = {
+        ...filters,
+        ...next,
+      };
+
+      const params = new URLSearchParams();
 
       const setString = (key: string, value: string | undefined) => {
-        if (!value) {
-          params.delete(key);
-        } else {
-          params.set(key, value);
-        }
+        if (!value) return;
+        params.set(key, value);
       };
 
       const setNumber = (key: string, value: number | undefined) => {
-        if (value === undefined || value === null || Number.isNaN(value)) {
-          params.delete(key);
-        } else {
-          params.set(key, String(value));
-        }
+        if (value === undefined || value === null || Number.isNaN(value)) return;
+        params.set(key, String(value));
       };
 
-      if (next.q !== undefined) setString('q', next.q || undefined);
-      if (next.difficulty !== undefined) setString('difficulty', next.difficulty || undefined);
-      if (next.category !== undefined) setString('category', next.category || undefined);
-      if (next.ingredient !== undefined) setString('ingredient', next.ingredient || undefined);
-      if (next.maxCookTime !== undefined) setNumber('maxCookTime', next.maxCookTime);
-      if (next.page !== undefined) setNumber('page', next.page);
-      if (next.pageSize !== undefined) setNumber('pageSize', next.pageSize);
+      setString('q', merged.q);
+      setString('difficulty', merged.difficulty);
+      setString('category', merged.category);
+      setString('ingredient', merged.ingredient);
+      setNumber('maxCookTime', merged.maxCookTime);
 
-      if (options?.resetPage) {
-        params.delete('page');
+      if (!options?.resetPage) {
+        setNumber('page', merged.page);
       }
+      setNumber('pageSize', merged.pageSize);
 
       const qs = params.toString();
       router.push(qs ? `${pathname}?${qs}` : pathname);
     },
-    [router, pathname, searchParams],
+    [router, pathname, filters],
   );
 
-  return { filters, setFilters };
+  const hasActiveFilters = useMemo(
+    () => Boolean(filters.category || filters.ingredient),
+    [filters],
+  );
+
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    if (filters.category) count += 1;
+    if (filters.ingredient) count += 1;
+    return count;
+  }, [filters]);
+
+  const clearAllFilters = useCallback(
+    () =>
+      setFilters(
+        {
+          category: '',
+          ingredient: '',
+          maxCookTime: undefined,
+        },
+        { resetPage: true },
+      ),
+    [setFilters],
+  );
+
+  return {
+    filters,
+    setFilters,
+    clearAllFilters,
+    hasActiveFilters,
+    activeFiltersCount,
+  };
 }
