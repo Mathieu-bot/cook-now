@@ -59,7 +59,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
             Recipes
           </h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            Browse recipes imported from the dataset.
+            All our recipes in one place. Use the filters to find something that fits your mood.
           </p>
         </div>
         <RecipeSearchForm q={q} />
@@ -69,7 +69,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
 
       {recipes.length === 0 ? (
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          No recipes found.
+          No recipes match your search. Try changing the filters or keywords.
         </p>
       ) : (
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

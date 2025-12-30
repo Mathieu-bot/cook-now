@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Cook Now",
-  description: "Discover and cook recipes from your own curated dataset.",
+  description: "Discover and cook delicious recipes, all in one simple place.",
 };
 
 export default function RootLayout({

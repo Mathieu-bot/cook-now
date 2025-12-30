@@ -15,7 +15,7 @@ export function RecipeDetailHeader({ recipe }: Props) {
       <div className="space-y-4">
         <div className="space-y-2">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-            Recipe
+            Recipe spotlight
           </p>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
             {recipe.title}
