@@ -9,6 +9,7 @@ type Props = {
   category?: string;
   ingredient?: string;
   maxCookTime?: number;
+  basePath?: string;
 };
 
 export function RecipesPagination({
@@ -20,12 +21,14 @@ export function RecipesPagination({
   category,
   ingredient,
   maxCookTime,
+  basePath,
 }: Props) {
   if (pagination.totalPages <= 1) return null;
 
   const hasPrev = pagination.page > 1;
   const hasNext = pagination.page < pagination.totalPages;
   const basePageSize = defaultPageSize ?? pageSize;
+  const base = basePath ?? '/recipes';
 
   const buildPageLink = (targetPage: number) => {
     const params = new URLSearchParams();
@@ -39,7 +42,7 @@ export function RecipesPagination({
        params.set('maxCookTime', String(maxCookTime));
      }
     const qs = params.toString();
-    return qs ? `/recipes?${qs}` : '/recipes';
+    return qs ? `${base}?${qs}` : base;
   };
 
   return (
