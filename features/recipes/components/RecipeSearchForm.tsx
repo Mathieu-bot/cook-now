@@ -9,18 +9,18 @@ export function RecipeSearchForm({ q, action = '/recipes', placeholder = 'Search
     <form
       action={action}
       method="get"
-      className="flex w-full max-w-xs gap-2"
+      className="flex w-full max-w-md items-center gap-2"
     >
       <input
         type="text"
         name="q"
         defaultValue={q}
         placeholder={placeholder}
-        className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm text-zinc-500 shadow-sm outline-none ring-0 transition focus:border-zinc-400 dark:border-zinc-700"
+        className="w-full rounded-full border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-700 outline-none ring-0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
       />
       <button
         type="submit"
-        className="inline-flex items-center rounded-md bg-foreground px-3 py-2 text-sm font-medium text-background shadow-sm transition hover:opacity-90"
+        className="inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-400"
       >
         Search
       </button>

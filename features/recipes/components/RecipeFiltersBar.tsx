@@ -24,7 +24,7 @@ export function RecipeFiltersBar() {
   }, [filters.ingredient]);
 
   return (
-    <section className="mt-4 rounded-lg border border-zinc-200 bg-white/70 p-3 text-xs text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/60 dark:text-zinc-200">
+    <section className="mt-4 rounded-2xl border border-zinc-200 bg-white/80 p-4 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950/70 dark:text-zinc-200">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
@@ -50,7 +50,7 @@ export function RecipeFiltersBar() {
       <div className="mt-3 flex flex-wrap items-center gap-3">
         <input
           type="text"
-          placeholder="Category"
+          placeholder="Category (e.g. Dessert, Pasta)"
           value={categoryInput}
           onChange={(event) => {
             const value = event.target.value;
@@ -65,7 +65,7 @@ export function RecipeFiltersBar() {
 
         <input
           type="text"
-          placeholder="Ingredient"
+          placeholder="Ingredient (e.g. Chicken, Tomato)"
           value={ingredientInput}
           onChange={(event) => {
             const value = event.target.value;
