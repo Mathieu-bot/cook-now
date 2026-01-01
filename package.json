@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "import:recipes": "tsx scripts/import-recipes.ts",
-    "import:mealdb": "tsx scripts/import-themealdb.ts"
+    "import:mealdb": "tsx scripts/import-themealdb.ts",
+    "import:ingredients-meta": "tsx scripts/import-ingredients-metadata.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
