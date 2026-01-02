@@ -90,6 +90,11 @@ export type Video = Prisma.VideoModel
  */
 export type Favorite = Prisma.FavoriteModel
 /**
+ * Model RecipeNote
+ * 
+ */
+export type RecipeNote = Prisma.RecipeNoteModel
+/**
  * Model Rating
  * 
  */

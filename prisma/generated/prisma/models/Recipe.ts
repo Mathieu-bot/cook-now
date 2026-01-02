@@ -302,6 +302,7 @@ export type RecipeWhereInput = {
   videos?: Prisma.VideoListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
   ratings?: Prisma.RatingListRelationFilter
+  notes?: Prisma.RecipeNoteListRelationFilter
 }
 
 export type RecipeOrderByWithRelationInput = {
@@ -325,6 +326,7 @@ export type RecipeOrderByWithRelationInput = {
   videos?: Prisma.VideoOrderByRelationAggregateInput
   favorites?: Prisma.FavoriteOrderByRelationAggregateInput
   ratings?: Prisma.RatingOrderByRelationAggregateInput
+  notes?: Prisma.RecipeNoteOrderByRelationAggregateInput
 }
 
 export type RecipeWhereUniqueInput = Prisma.AtLeast<{
@@ -351,6 +353,7 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   videos?: Prisma.VideoListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
   ratings?: Prisma.RatingListRelationFilter
+  notes?: Prisma.RecipeNoteListRelationFilter
 }, "id" | "slug">
 
 export type RecipeOrderByWithAggregationInput = {
@@ -416,6 +419,7 @@ export type RecipeCreateInput = {
   videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateInput = {
@@ -439,6 +443,7 @@ export type RecipeUncheckedCreateInput = {
   videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUpdateInput = {
@@ -462,6 +467,7 @@ export type RecipeUpdateInput = {
   videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateInput = {
@@ -485,6 +491,7 @@ export type RecipeUncheckedUpdateInput = {
   videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateManyInput = {
@@ -606,10 +613,6 @@ export type RecipeScalarRelationFilter = {
   isNot?: Prisma.RecipeWhereInput
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -688,6 +691,20 @@ export type RecipeUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RecipeUpdateToOneWithWhereWithoutFavoritesInput, Prisma.RecipeUpdateWithoutFavoritesInput>, Prisma.RecipeUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type RecipeCreateNestedOneWithoutNotesInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutNotesInput, Prisma.RecipeUncheckedCreateWithoutNotesInput>
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutNotesInput
+  connect?: Prisma.RecipeWhereUniqueInput
+}
+
+export type RecipeUpdateOneRequiredWithoutNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutNotesInput, Prisma.RecipeUncheckedCreateWithoutNotesInput>
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutNotesInput
+  upsert?: Prisma.RecipeUpsertWithoutNotesInput
+  connect?: Prisma.RecipeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RecipeUpdateToOneWithWhereWithoutNotesInput, Prisma.RecipeUpdateWithoutNotesInput>, Prisma.RecipeUncheckedUpdateWithoutNotesInput>
+}
+
 export type RecipeCreateNestedOneWithoutRatingsInput = {
   create?: Prisma.XOR<Prisma.RecipeCreateWithoutRatingsInput, Prisma.RecipeUncheckedCreateWithoutRatingsInput>
   connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutRatingsInput
@@ -722,6 +739,7 @@ export type RecipeCreateWithoutIngredientsInput = {
   videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutIngredientsInput = {
@@ -744,6 +762,7 @@ export type RecipeUncheckedCreateWithoutIngredientsInput = {
   videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutIngredientsInput = {
@@ -782,6 +801,7 @@ export type RecipeUpdateWithoutIngredientsInput = {
   videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutIngredientsInput = {
@@ -804,6 +824,7 @@ export type RecipeUncheckedUpdateWithoutIngredientsInput = {
   videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutCategoriesInput = {
@@ -826,6 +847,7 @@ export type RecipeCreateWithoutCategoriesInput = {
   videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutCategoriesInput = {
@@ -848,6 +870,7 @@ export type RecipeUncheckedCreateWithoutCategoriesInput = {
   videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutCategoriesInput = {
@@ -886,6 +909,7 @@ export type RecipeUpdateWithoutCategoriesInput = {
   videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutCategoriesInput = {
@@ -908,6 +932,7 @@ export type RecipeUncheckedUpdateWithoutCategoriesInput = {
   videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutTagsInput = {
@@ -930,6 +955,7 @@ export type RecipeCreateWithoutTagsInput = {
   videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutTagsInput = {
@@ -952,6 +978,7 @@ export type RecipeUncheckedCreateWithoutTagsInput = {
   videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutTagsInput = {
@@ -990,6 +1017,7 @@ export type RecipeUpdateWithoutTagsInput = {
   videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutTagsInput = {
@@ -1012,6 +1040,7 @@ export type RecipeUncheckedUpdateWithoutTagsInput = {
   videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutVideosInput = {
@@ -1034,6 +1063,7 @@ export type RecipeCreateWithoutVideosInput = {
   tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutVideosInput = {
@@ -1056,6 +1086,7 @@ export type RecipeUncheckedCreateWithoutVideosInput = {
   tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutVideosInput = {
@@ -1094,6 +1125,7 @@ export type RecipeUpdateWithoutVideosInput = {
   tags?: Prisma.RecipeTagUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutVideosInput = {
@@ -1116,6 +1148,7 @@ export type RecipeUncheckedUpdateWithoutVideosInput = {
   tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutFavoritesInput = {
@@ -1138,6 +1171,7 @@ export type RecipeCreateWithoutFavoritesInput = {
   tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipeInput
   videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutFavoritesInput = {
@@ -1160,6 +1194,7 @@ export type RecipeUncheckedCreateWithoutFavoritesInput = {
   tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipeInput
   videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutFavoritesInput = {
@@ -1198,6 +1233,7 @@ export type RecipeUpdateWithoutFavoritesInput = {
   tags?: Prisma.RecipeTagUpdateManyWithoutRecipeNestedInput
   videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutFavoritesInput = {
@@ -1219,6 +1255,115 @@ export type RecipeUncheckedUpdateWithoutFavoritesInput = {
   categories?: Prisma.RecipeCategoryUncheckedUpdateManyWithoutRecipeNestedInput
   tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipeNestedInput
   videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeCreateWithoutNotesInput = {
+  id?: string
+  slug: string
+  title: string
+  summary?: string | null
+  imageUrl?: string | null
+  prepTimeMinutes?: number | null
+  cookTimeMinutes?: number | null
+  servings?: number | null
+  difficulty?: string | null
+  sourceName?: string | null
+  sourceUrl?: string | null
+  instructions: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ingredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  categories?: Prisma.RecipeCategoryCreateNestedManyWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipeInput
+  videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutRecipeInput
+}
+
+export type RecipeUncheckedCreateWithoutNotesInput = {
+  id?: string
+  slug: string
+  title: string
+  summary?: string | null
+  imageUrl?: string | null
+  prepTimeMinutes?: number | null
+  cookTimeMinutes?: number | null
+  servings?: number | null
+  difficulty?: string | null
+  sourceName?: string | null
+  sourceUrl?: string | null
+  instructions: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ingredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  categories?: Prisma.RecipeCategoryUncheckedCreateNestedManyWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipeInput
+  videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutRecipeInput
+}
+
+export type RecipeCreateOrConnectWithoutNotesInput = {
+  where: Prisma.RecipeWhereUniqueInput
+  create: Prisma.XOR<Prisma.RecipeCreateWithoutNotesInput, Prisma.RecipeUncheckedCreateWithoutNotesInput>
+}
+
+export type RecipeUpsertWithoutNotesInput = {
+  update: Prisma.XOR<Prisma.RecipeUpdateWithoutNotesInput, Prisma.RecipeUncheckedUpdateWithoutNotesInput>
+  create: Prisma.XOR<Prisma.RecipeCreateWithoutNotesInput, Prisma.RecipeUncheckedCreateWithoutNotesInput>
+  where?: Prisma.RecipeWhereInput
+}
+
+export type RecipeUpdateToOneWithWhereWithoutNotesInput = {
+  where?: Prisma.RecipeWhereInput
+  data: Prisma.XOR<Prisma.RecipeUpdateWithoutNotesInput, Prisma.RecipeUncheckedUpdateWithoutNotesInput>
+}
+
+export type RecipeUpdateWithoutNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prepTimeMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cookTimeMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ingredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  categories?: Prisma.RecipeCategoryUpdateManyWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipeNestedInput
+  videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeUncheckedUpdateWithoutNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prepTimeMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cookTimeMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  servings?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ingredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  categories?: Prisma.RecipeCategoryUncheckedUpdateManyWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipeNestedInput
+  videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
@@ -1242,6 +1387,7 @@ export type RecipeCreateWithoutRatingsInput = {
   tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipeInput
   videos?: Prisma.VideoCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutRatingsInput = {
@@ -1264,6 +1410,7 @@ export type RecipeUncheckedCreateWithoutRatingsInput = {
   tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipeInput
   videos?: Prisma.VideoUncheckedCreateNestedManyWithoutRecipeInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRecipeInput
+  notes?: Prisma.RecipeNoteUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutRatingsInput = {
@@ -1302,6 +1449,7 @@ export type RecipeUpdateWithoutRatingsInput = {
   tags?: Prisma.RecipeTagUpdateManyWithoutRecipeNestedInput
   videos?: Prisma.VideoUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutRatingsInput = {
@@ -1324,6 +1472,7 @@ export type RecipeUncheckedUpdateWithoutRatingsInput = {
   tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipeNestedInput
   videos?: Prisma.VideoUncheckedUpdateManyWithoutRecipeNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRecipeNestedInput
+  notes?: Prisma.RecipeNoteUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 
@@ -1338,6 +1487,7 @@ export type RecipeCountOutputType = {
   videos: number
   favorites: number
   ratings: number
+  notes: number
 }
 
 export type RecipeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1347,6 +1497,7 @@ export type RecipeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   videos?: boolean | RecipeCountOutputTypeCountVideosArgs
   favorites?: boolean | RecipeCountOutputTypeCountFavoritesArgs
   ratings?: boolean | RecipeCountOutputTypeCountRatingsArgs
+  notes?: boolean | RecipeCountOutputTypeCountNotesArgs
 }
 
 /**
@@ -1401,6 +1552,13 @@ export type RecipeCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.RatingWhereInput
 }
 
+/**
+ * RecipeCountOutputType without action
+ */
+export type RecipeCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecipeNoteWhereInput
+}
+
 
 export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1423,6 +1581,7 @@ export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   videos?: boolean | Prisma.Recipe$videosArgs<ExtArgs>
   favorites?: boolean | Prisma.Recipe$favoritesArgs<ExtArgs>
   ratings?: boolean | Prisma.Recipe$ratingsArgs<ExtArgs>
+  notes?: boolean | Prisma.Recipe$notesArgs<ExtArgs>
   _count?: boolean | Prisma.RecipeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recipe"]>
 
@@ -1485,6 +1644,7 @@ export type RecipeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   videos?: boolean | Prisma.Recipe$videosArgs<ExtArgs>
   favorites?: boolean | Prisma.Recipe$favoritesArgs<ExtArgs>
   ratings?: boolean | Prisma.Recipe$ratingsArgs<ExtArgs>
+  notes?: boolean | Prisma.Recipe$notesArgs<ExtArgs>
   _count?: boolean | Prisma.RecipeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RecipeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1499,6 +1659,7 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     videos: Prisma.$VideoPayload<ExtArgs>[]
     favorites: Prisma.$FavoritePayload<ExtArgs>[]
     ratings: Prisma.$RatingPayload<ExtArgs>[]
+    notes: Prisma.$RecipeNotePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1915,6 +2076,7 @@ export interface Prisma__RecipeClient<T, Null = never, ExtArgs extends runtime.T
   videos<T extends Prisma.Recipe$videosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$videosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorites<T extends Prisma.Recipe$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.Recipe$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notes<T extends Prisma.Recipe$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2487,6 +2649,30 @@ export type Recipe$ratingsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.RatingScalarFieldEnum | Prisma.RatingScalarFieldEnum[]
+}
+
+/**
+ * Recipe.notes
+ */
+export type Recipe$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecipeNote
+   */
+  select?: Prisma.RecipeNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecipeNote
+   */
+  omit?: Prisma.RecipeNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecipeNoteInclude<ExtArgs> | null
+  where?: Prisma.RecipeNoteWhereInput
+  orderBy?: Prisma.RecipeNoteOrderByWithRelationInput | Prisma.RecipeNoteOrderByWithRelationInput[]
+  cursor?: Prisma.RecipeNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecipeNoteScalarFieldEnum | Prisma.RecipeNoteScalarFieldEnum[]
 }
 
 /**

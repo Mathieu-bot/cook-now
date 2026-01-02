@@ -61,6 +61,7 @@ export const ModelName = {
   RecipeTag: 'RecipeTag',
   Video: 'Video',
   Favorite: 'Favorite',
+  RecipeNote: 'RecipeNote',
   Rating: 'Rating'
 } as const
 
@@ -85,7 +86,10 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  name: 'name',
+  avatarUrl: 'avatarUrl',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -187,6 +191,18 @@ export const FavoriteScalarFieldEnum = {
 } as const
 
 export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
+export const RecipeNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  recipeId: 'recipeId',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecipeNoteScalarFieldEnum = (typeof RecipeNoteScalarFieldEnum)[keyof typeof RecipeNoteScalarFieldEnum]
 
 
 export const RatingScalarFieldEnum = {

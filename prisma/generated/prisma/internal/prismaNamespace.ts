@@ -394,6 +394,7 @@ export const ModelName = {
   RecipeTag: 'RecipeTag',
   Video: 'Video',
   Favorite: 'Favorite',
+  RecipeNote: 'RecipeNote',
   Rating: 'Rating'
 } as const
 
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "recipe" | "ingredient" | "recipeIngredient" | "category" | "recipeCategory" | "tag" | "recipeTag" | "video" | "favorite" | "rating"
+    modelProps: "user" | "recipe" | "ingredient" | "recipeIngredient" | "category" | "recipeCategory" | "tag" | "recipeTag" | "video" | "favorite" | "recipeNote" | "rating"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1154,6 +1155,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RecipeNote: {
+      payload: Prisma.$RecipeNotePayload<ExtArgs>
+      fields: Prisma.RecipeNoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecipeNoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecipeNoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>
+        }
+        findFirst: {
+          args: Prisma.RecipeNoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecipeNoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>
+        }
+        findMany: {
+          args: Prisma.RecipeNoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>[]
+        }
+        create: {
+          args: Prisma.RecipeNoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>
+        }
+        createMany: {
+          args: Prisma.RecipeNoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecipeNoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>[]
+        }
+        delete: {
+          args: Prisma.RecipeNoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>
+        }
+        update: {
+          args: Prisma.RecipeNoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>
+        }
+        deleteMany: {
+          args: Prisma.RecipeNoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecipeNoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecipeNoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>[]
+        }
+        upsert: {
+          args: Prisma.RecipeNoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeNotePayload>
+        }
+        aggregate: {
+          args: Prisma.RecipeNoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecipeNote>
+        }
+        groupBy: {
+          args: Prisma.RecipeNoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecipeNoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecipeNoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecipeNoteCountAggregateOutputType> | number
+        }
+      }
+    }
     Rating: {
       payload: Prisma.$RatingPayload<ExtArgs>
       fields: Prisma.RatingFieldRefs
@@ -1272,7 +1347,10 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  name: 'name',
+  avatarUrl: 'avatarUrl',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1376,6 +1454,18 @@ export const FavoriteScalarFieldEnum = {
 export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
 
 
+export const RecipeNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  recipeId: 'recipeId',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecipeNoteScalarFieldEnum = (typeof RecipeNoteScalarFieldEnum)[keyof typeof RecipeNoteScalarFieldEnum]
+
+
 export const RatingScalarFieldEnum = {
   userId: 'userId',
   recipeId: 'recipeId',
@@ -1442,6 +1532,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'UserRole'
+ */
+export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+/**
+ * Reference to a field of type 'UserRole[]'
+ */
+export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
     
 
 
@@ -1577,6 +1681,7 @@ export type GlobalOmitConfig = {
   recipeTag?: Prisma.RecipeTagOmit
   video?: Prisma.VideoOmit
   favorite?: Prisma.FavoriteOmit
+  recipeNote?: Prisma.RecipeNoteOmit
   rating?: Prisma.RatingOmit
 }
 
