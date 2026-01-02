@@ -14,8 +14,13 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
+  name         String?
+  avatarUrl    String?
+  role         UserRole  @default(USER)
+
   favorites    Favorite[]
   ratings      Rating[]
+  recipeNotes  RecipeNote[]
 }
 
 model Recipe {
@@ -41,6 +46,7 @@ model Recipe {
   videos          Video[]
   favorites       Favorite[]
   ratings         Rating[]
+  notes           RecipeNote[]
 
   @@index([title])
 }
@@ -129,6 +135,26 @@ model Favorite {
 
   @@id([userId, recipeId])
   @@index([recipeId])
+}
+
+model RecipeNote {
+  id       String  @id @default(cuid())
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  recipe   Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+  text     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, recipeId])
+  @@index([recipeId])
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model Rating {
