@@ -2,9 +2,9 @@ import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
 
 type Params = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export async function GET(_request: Request, { params }: Params) {
@@ -17,8 +17,17 @@ export async function GET(_request: Request, { params }: Params) {
     );
   }
 
+  const { slug: rawSlug } = await params;
+  const slug = rawSlug?.trim();
+  if (!slug) {
+    return Response.json(
+      { error: 'Recipe slug is required.' },
+      { status: 400 },
+    );
+  }
+
   const recipe = await prisma.recipe.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     select: { id: true },
   });
 
@@ -55,8 +64,17 @@ export async function PUT(request: Request, { params }: Params) {
     );
   }
 
+  const { slug: rawSlug } = await params;
+  const slug = rawSlug?.trim();
+  if (!slug) {
+    return Response.json(
+      { error: 'Recipe slug is required.' },
+      { status: 400 },
+    );
+  }
+
   const recipe = await prisma.recipe.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     select: { id: true },
   });
 
