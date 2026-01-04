@@ -7,15 +7,35 @@ type Props = {
 
 export function RecipeCard({ recipe }: Props) {
   const prepTime = recipe.prepTimeMinutes ?? recipe.cookTimeMinutes;
+  const metaParts: string[] = [];
+  if (prepTime != null) metaParts.push(`${prepTime} min`);
+  if (recipe.difficulty) metaParts.push(recipe.difficulty);
+  if (recipe.hasVideo) metaParts.push('Video');
+
+  const metaText = metaParts.join(' · ');
+  const avatarLabel = (recipe.primaryCategory ?? 'CN').slice(0, 2).toUpperCase();
 
   return (
-    <article className="group flex flex-col overflow-hidden shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ">
-      {recipe.imageUrl && (
-        <Link
-          href={`/recipes/${recipe.slug}`}
-          className="block"
-        >
-          <div className="relative h-40 w-full overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900">
+    <article className="group overflow-hidden rounded-2xl border border-zinc-200 bg-white/80 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+      <Link href={`/recipes/${recipe.slug}`} className="flex h-full flex-col">
+        <header className="flex items-center gap-3 px-4 pt-3 pb-2 text-xs text-zinc-500 dark:text-zinc-400">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 text-[11px] font-semibold text-zinc-50 dark:bg-zinc-100 dark:text-zinc-900">
+            {avatarLabel}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-700 dark:text-zinc-300">
+              {recipe.primaryCategory ?? 'CookNow recipe'}
+            </p>
+            {metaText && (
+              <p className="mt-0.5 truncate text-[11px] text-zinc-500 dark:text-zinc-400">
+                {metaText}
+              </p>
+            )}
+          </div>
+        </header>
+
+        {recipe.imageUrl && (
+          <div className="relative h-44 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
             <img
               src={recipe.imageUrl}
               alt={recipe.title}
@@ -23,48 +43,32 @@ export function RecipeCard({ recipe }: Props) {
               loading="lazy"
             />
           </div>
+        )}
 
+        <div className="flex flex-1 flex-col px-4 pb-3 pt-3">
+          <h2 className="text-base font-semibold leading-snug text-zinc-900 dark:text-zinc-50">
+            {recipe.title}
+          </h2>
+          {recipe.summary && (
+            <p className="mt-1 line-clamp-3 text-sm text-zinc-600 dark:text-zinc-400">
+              {recipe.summary}
+            </p>
+          )}
 
-          <div className="flex flex-1 flex-col p-4">
-            <div className="flex-1 space-y-2">
-              {recipe.primaryCategory && (
-                <span className="inline-flex items-center rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
-                  {recipe.primaryCategory}
-                </span>
-              )}
-              <h2 className="mb-1 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                {recipe.title}
-              </h2>
-              {recipe.summary && (
-                <p className="mb-3 line-clamp-3 text-sm text-zinc-600 dark:text-zinc-400">
-                  {recipe.summary}
-                </p>
-              )}
-            </div>
-
-            <div className="mt-2 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
-              <div className="flex gap-3">
-                {prepTime != null && <span>{prepTime} min</span>}
-                {recipe.difficulty && (
-                  <span className="capitalize">{recipe.difficulty}</span>
-                )}
-              </div>
-              <div
-                className="flex justify-between items-center gap-2 text-xs font-medium text-foreground"
-              >
-                {recipe.hasVideo && (
-                  <>
-                    <span className="font-semibold tracking-wide text-red-600 dark:text-red-400">
-                      Video
-                    </span>
-                    <span className='bg-red-500 rounded-full w-2 h-2 block'></span>
-                  </>
-                )}
-              </div>
-            </div>
+          <div className="mt-3 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400">
+            <span className="inline-flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span>Open recipe</span>
+            </span>
+            {recipe.hasVideo && (
+              <span className="inline-flex items-center gap-1 font-medium text-red-600 dark:text-red-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                <span>Video inside</span>
+              </span>
+            )}
           </div>
-        </Link>
-      )}
+        </div>
+      </Link>
     </article>
   );
 }
