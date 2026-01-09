@@ -23,8 +23,8 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
   const missingCount = totalCount > usedCount ? totalCount - usedCount : 0;
 
   return (
-    <section className="flex h-full flex-col overflow-hidden rounded-2xl bg-emerald-900 text-emerald-50 ring-1 ring-emerald-800 dark:bg-zinc-950 dark:text-zinc-50 dark:ring-zinc-800">
-      <div className="flex items-center justify-between gap-3 border-b border-emerald-700/70 bg-emerald-950/40 px-4 py-3 text-xs dark:border-zinc-800 dark:bg-zinc-900/80">
+    <section className="flex h-full flex-col overflow-hidden rounded-2xl bg-zinc-950 text-zinc-50 ring-1 ring-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 dark:ring-zinc-800">
+      <div className="flex items-center justify-between gap-3 border-b border-emerald-700/70 bg-emerald-950/70 px-4 py-3 text-xs dark:border-emerald-700/70 dark:bg-emerald-950/80">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-emerald-300 dark:text-emerald-300">
             Step 2
@@ -34,7 +34,7 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
           </h2>
         </div>
         {hasQuery && (
-          <p className="max-w-[180px] text-right text-[11px] text-emerald-100/90 dark:text-zinc-400">
+          <p className="max-w-[200px] text-right text-[11px] text-emerald-100/90 dark:text-emerald-100/90">
             {hasSuggestions
               ? `Showing ${suggestions.length} recipe${suggestions.length > 1 ? 's' : ''}.`
               : 'No matches yet for this selection.'}
@@ -84,7 +84,7 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
                 href="/recipes"
                 className="text-[11px] font-medium text-emerald-200 underline-offset-4 hover:text-emerald-100 hover:underline dark:text-emerald-300 dark:hover:text-emerald-200"
               >
-                Voir toutes les recettes
+                See all recipes
               </Link>
             </div>
           </div>

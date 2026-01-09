@@ -60,7 +60,7 @@ export function CookNowSelectionPanel({ initialSelected, ingredientOptions }: Pr
     : filteredIngredients;
 
   return (
-    <section className="h-full rounded-2xl bg-white/95 p-4 text-sm ring-1 ring-zinc-100 dark:bg-zinc-900/90 dark:ring-zinc-800 sm:p-5">
+    <section className="h-full rounded-2xl bg-white/95 p-4 text-sm shadow-sm ring-1 ring-zinc-200/80 dark:bg-zinc-950/85 dark:ring-zinc-800 sm:p-5">
       <form
         className="flex h-full flex-col gap-4"
         onSubmit={(event) => event.preventDefault()}

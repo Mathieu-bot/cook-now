@@ -15,10 +15,10 @@ type CookNowViewProps = {
 
 export function CookNowView({ ingredients, suggestions, ingredientOptions }: CookNowViewProps) {
 	return (
-		<PageContainer className="gap-8 lg:gap-10">
+		<PageContainer className="gap-8 lg:gap-12">
 			<CookNowHeader />
-			<section className="rounded-[32px] bg-linear-to-br from-emerald-50 via-emerald-100/70 to-amber-50/80 p-px dark:from-zinc-900 dark:via-zinc-950 dark:to-emerald-950">
-				<div className="grid gap-6 rounded-[30px] bg-white/95 p-4 dark:bg-zinc-950/80 sm:p-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2.4fr)] lg:p-6">
+			<section className="rounded-[32px] border border-emerald-500/10 bg-linear-to-br from-emerald-50 via-emerald-50/40 to-emerald-100/70 p-px shadow-[0_24px_80px_rgba(15,23,42,0.16)] dark:border-emerald-500/25 dark:from-zinc-950 dark:via-zinc-950/80 dark:to-emerald-950">
+				<div className="grid gap-6 rounded-[30px] bg-white/95 p-4 backdrop-blur-sm dark:bg-zinc-950/90 sm:p-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2.4fr)] lg:p-7">
 					<CookNowSelectionPanel
 						initialSelected={ingredients}
 						ingredientOptions={ingredientOptions}
@@ -34,11 +34,11 @@ export function CookNowView({ ingredients, suggestions, ingredientOptions }: Coo
 function CookNowHeader() {
 	return (
 		<header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-			<div>
+			<div className="max-w-2xl">
 				<p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
 					CookNow
 				</p>
-				<h1 className="mt-1 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+				<h1 className="mt-1 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
 					Cook with what you have
 				</h1>
 				<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">

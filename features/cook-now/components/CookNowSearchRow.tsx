@@ -19,7 +19,7 @@ export function CookNowSearchRow({
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Search an ingredient..."
-          className="w-full rounded-full border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm outline-none ring-0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-full rounded-full border border-zinc-200 bg-zinc-50/80 px-3 py-2 text-sm text-zinc-900 shadow-sm outline-none ring-0 transition placeholder:text-zinc-400 focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:placeholder:text-zinc-500"
         />
         {search && (
           <button
@@ -36,8 +36,8 @@ export function CookNowSearchRow({
         onClick={onToggleShowSelectedOnly}
         className={`whitespace-nowrap rounded-full border px-3 py-1 text-[11px] font-medium transition ${
           showSelectedOnly
-            ? 'border-emerald-500 bg-emerald-600 text-white dark:border-emerald-400 dark:bg-emerald-500'
-            : 'border-zinc-300 bg-zinc-50 text-zinc-700 hover:border-emerald-400 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200'
+            ? 'border-emerald-500 bg-emerald-600 text-white shadow-sm dark:border-emerald-400 dark:bg-emerald-500'
+            : 'border-zinc-300 bg-zinc-50/80 text-zinc-700 hover:border-emerald-400 hover:bg-emerald-50/40 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200'
         }`}
       >
         {showSelectedOnly ? 'All ingredients' : 'Selected only'}
