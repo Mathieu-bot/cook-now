@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { AuthUser } from '@/features/auth/hooks/authApi';
 import { login, register } from '@/features/auth/hooks/authApi';
 
@@ -19,8 +20,13 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  if (!open) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!open || !mounted) return null;
 
   const isLogin = mode === 'login';
   const title = isLogin ? 'Welcome back' : "Let's get you started";
@@ -62,8 +68,8 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
     setError(null);
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-4 pt-20 sm:pt-24 backdrop-blur-md">
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-md">
       <div className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
         <div className="flex items-center justify-between gap-2 border-b border-zinc-100 pb-3 dark:border-zinc-800">
           <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{title}</h2>
@@ -75,32 +81,7 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
             Close
           </button>
         </div>
-
-        <div className="mt-3 flex gap-1 rounded-full bg-zinc-100 p-1 text-xs font-medium text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300">
-          <button
-            type="button"
-            onClick={() => switchMode('login')}
-            className={`flex-1 rounded-full px-3 py-1 text-center transition ${
-              isLogin
-                ? 'bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-zinc-50'
-                : 'hover:text-zinc-900 dark:hover:text-zinc-50'
-            }`}
-          >
-            Log in
-          </button>
-          <button
-            type="button"
-            onClick={() => switchMode('register')}
-            className={`flex-1 rounded-full px-3 py-1 text-center transition ${
-              !isLogin
-                ? 'bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-zinc-50'
-                : 'hover:text-zinc-900 dark:hover:text-zinc-50'
-            }`}
-          >
-            Sign up
-          </button>
-        </div>
-
+        
         <form onSubmit={handleSubmit} className="mt-4 space-y-3 text-sm">
           <div className="space-y-1">
             <label className="text-xs font-medium text-zinc-600 dark:text-zinc-300">Email</label>
@@ -165,6 +146,7 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
           </p>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
