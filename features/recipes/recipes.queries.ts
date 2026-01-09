@@ -329,3 +329,63 @@ export async function suggestRecipesFromIngredients({
 
 	return scored.slice(0, limit);
 }
+
+export async function listFavoriteRecipesForUser(userId: string): Promise<RecipeSummary[]> {
+	if (!userId) {
+		return [];
+	}
+
+	const favorites = await prisma.favorite.findMany({
+		where: { userId },
+		orderBy: { createdAt: 'desc' },
+		select: {
+			recipe: {
+				select: {
+					id: true,
+					slug: true,
+					title: true,
+					summary: true,
+					imageUrl: true,
+					prepTimeMinutes: true,
+					cookTimeMinutes: true,
+					difficulty: true,
+					categories: {
+						take: 1,
+						orderBy: {
+							category: {
+								name: 'asc',
+							},
+						},
+						select: {
+							category: {
+								select: {
+									name: true,
+								},
+							},
+						},
+					},
+					videos: {
+						select: { id: true },
+						take: 1,
+					},
+				},
+			},
+		},
+	});
+
+	return favorites
+		.map((favorite) => favorite.recipe)
+		.filter((recipe): recipe is NonNullable<(typeof favorites)[number]['recipe']> => Boolean(recipe))
+		.map((recipe) => ({
+			id: recipe.id,
+			slug: recipe.slug,
+			title: recipe.title,
+			summary: recipe.summary ?? null,
+			imageUrl: recipe.imageUrl ?? null,
+			prepTimeMinutes: recipe.prepTimeMinutes ?? null,
+			cookTimeMinutes: recipe.cookTimeMinutes ?? null,
+			difficulty: recipe.difficulty ?? null,
+			primaryCategory: recipe.categories[0]?.category.name ?? null,
+			hasVideo: (recipe.videos?.length ?? 0) > 0,
+		}));
+}
