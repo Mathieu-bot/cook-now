@@ -19,6 +19,9 @@ export function AppHeader() {
             <Link href="/ingredients" className="hover:text-zinc-900 dark:hover:text-zinc-50">
               Ingredients
             </Link>
+            <Link href="/favorites" className="hover:text-zinc-900 dark:hover:text-zinc-50">
+              Favorites
+            </Link>
           </nav>
         </div>
         <HeaderAuthActions />
