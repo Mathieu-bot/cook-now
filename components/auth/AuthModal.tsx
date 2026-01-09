@@ -29,7 +29,7 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
   if (!open || !mounted) return null;
 
   const isLogin = mode === 'login';
-  const title = isLogin ? 'Welcome back' : "Let's get you started";
+  const title = isLogin ? 'Log in to Cook Now' : 'Create your Cook Now account';
   const primaryLabel = isLogin ? 'Log in' : 'Create account';
 
   async function handleSubmit(event: React.FormEvent) {
@@ -69,8 +69,14 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-md">
-      <div className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg dark:border-zinc-800 dark:bg-zinc-950"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="flex items-center justify-between gap-2 border-b border-zinc-100 pb-3 dark:border-zinc-800">
           <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{title}</h2>
           <button
