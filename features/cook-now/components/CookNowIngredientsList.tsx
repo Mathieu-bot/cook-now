@@ -16,7 +16,7 @@ export function CookNowIngredientsList({
   return (
     <div className="mt-2 flex-1 space-y-2">
       <div className="relative">
-        <div className="max-h-80 overflow-y-auto pr-1 text-xs [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="max-h-60 py-4 overflow-y-auto pr-1 text-xs [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {visibleIngredients.map((ingredient) => {
               const isSelected = selected.includes(ingredient.name);
