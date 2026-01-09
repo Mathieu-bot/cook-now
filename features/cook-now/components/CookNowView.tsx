@@ -15,16 +15,14 @@ type CookNowViewProps = {
 
 export function CookNowView({ ingredients, suggestions, ingredientOptions }: CookNowViewProps) {
 	return (
-		<PageContainer className="gap-8 lg:gap-12">
+		<PageContainer className="gap-8 lg:gap-10">
 			<CookNowHeader />
-			<section className="rounded-[32px] border border-emerald-500/10 bg-linear-to-br from-emerald-50 via-emerald-50/40 to-emerald-100/70 p-px shadow-[0_24px_80px_rgba(15,23,42,0.16)] dark:border-emerald-500/25 dark:from-zinc-950 dark:via-zinc-950/80 dark:to-emerald-950">
-				<div className="grid gap-6 rounded-[30px] bg-white/95 p-4 backdrop-blur-sm dark:bg-zinc-950/90 sm:p-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2.4fr)] lg:p-7">
-					<CookNowSelectionPanel
-						initialSelected={ingredients}
-						ingredientOptions={ingredientOptions}
-					/>
-					<CookNowResultsPanel ingredients={ingredients} suggestions={suggestions} />
-				</div>
+			<section className="grid gap-6 rounded-[30px] bg-white/95 dark:bg-zinc-950/80 p-0 sm:px-2 sm:py-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2.4fr)]">
+				<CookNowSelectionPanel
+					initialSelected={ingredients}
+					ingredientOptions={ingredientOptions}
+				/>
+				<CookNowResultsPanel ingredients={ingredients} suggestions={suggestions} />
 			</section>
 			<CookNowFooter />
 		</PageContainer>
