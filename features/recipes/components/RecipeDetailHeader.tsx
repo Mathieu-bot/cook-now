@@ -1,4 +1,5 @@
 import type { RecipeDetail } from '../recipes.types';
+import { RecipeFavoriteButton } from './RecipeFavoriteButton';
 
 type Props = {
   recipe: RecipeDetail;
@@ -67,15 +68,18 @@ export function RecipeDetailHeader({ recipe }: Props) {
         </div>
       </div>
 
-      {recipe.imageUrl && (
-        <div className="mt-4 w-full overflow-hidden rounded-xl bg-zinc-100 shadow-sm dark:bg-zinc-900 md:mt-0 md:w-64">
-          <img
-            src={recipe.imageUrl}
-            alt={recipe.title}
-            className="h-full w-full object-cover"
-          />
-        </div>
-      )}
+      <div className="mt-4 flex w-full flex-col items-end gap-3 md:mt-0 md:w-64">
+        <RecipeFavoriteButton slug={recipe.slug} />
+        {recipe.imageUrl && (
+          <div className="w-full overflow-hidden rounded-xl bg-zinc-100 shadow-sm dark:bg-zinc-900">
+            <img
+              src={recipe.imageUrl}
+              alt={recipe.title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        )}
+      </div>
     </header>
   );
 }
