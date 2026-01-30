@@ -1,3 +1,5 @@
+import { Search } from 'lucide-react';
+
 type Props = {
   q?: string;
   action?: string;
@@ -20,9 +22,10 @@ export function RecipeSearchForm({ q, action = '/recipes', placeholder = 'Search
       />
       <button
         type="submit"
-        className="inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-400"
+        className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-400"
       >
-        Search
+        <Search className="h-4 w-4" />
+        <span>Search</span>
       </button>
     </form>
   );
