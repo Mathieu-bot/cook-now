@@ -11,6 +11,7 @@ export type RecipeFilters = {
   maxCookTime?: number;
   page?: number;
   pageSize?: number;
+  favoritesOnly?: boolean;
 };
 
 export function useRecipeFilters() {
@@ -26,6 +27,10 @@ export function useRecipeFilters() {
       const n = Number(raw);
       return Number.isNaN(n) ? undefined : n;
     };
+    const getBooleanFlag = (key: string) => {
+      const raw = searchParams.get(key);
+      return raw === '1' ? true : undefined;
+    };
 
     return {
       q: get('q'),
@@ -35,6 +40,7 @@ export function useRecipeFilters() {
       maxCookTime: getNumber('maxCookTime'),
       page: getNumber('page'),
       pageSize: getNumber('pageSize'),
+      favoritesOnly: getBooleanFlag('favoritesOnly'),
     };
   }, [searchParams]);
 
@@ -57,11 +63,17 @@ export function useRecipeFilters() {
         params.set(key, String(value));
       };
 
+      const setBooleanFlag = (key: string, value: boolean | undefined) => {
+        if (!value) return;
+        params.set(key, '1');
+      };
+
       setString('q', merged.q);
       setString('difficulty', merged.difficulty);
       setString('category', merged.category);
       setString('ingredient', merged.ingredient);
       setNumber('maxCookTime', merged.maxCookTime);
+      setBooleanFlag('favoritesOnly', merged.favoritesOnly);
 
       if (!options?.resetPage) {
         setNumber('page', merged.page);
@@ -75,7 +87,13 @@ export function useRecipeFilters() {
   );
 
   const hasActiveFilters = useMemo(
-    () => Boolean(filters.category || filters.ingredient),
+    () =>
+      Boolean(
+        filters.category ||
+          filters.ingredient ||
+          filters.maxCookTime !== undefined ||
+          filters.favoritesOnly,
+      ),
     [filters],
   );
 
@@ -83,6 +101,8 @@ export function useRecipeFilters() {
     let count = 0;
     if (filters.category) count += 1;
     if (filters.ingredient) count += 1;
+    if (typeof filters.maxCookTime === 'number') count += 1;
+    if (filters.favoritesOnly) count += 1;
     return count;
   }, [filters]);
 
@@ -93,6 +113,7 @@ export function useRecipeFilters() {
           category: '',
           ingredient: '',
           maxCookTime: undefined,
+          favoritesOnly: false,
         },
         { resetPage: true },
       ),
