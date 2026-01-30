@@ -1,3 +1,5 @@
+import { Search } from 'lucide-react';
+
 type Props = {
   search: string;
   onSearchChange: (value: string) => void;
@@ -14,12 +16,13 @@ export function CookNowSearchRow({
   return (
     <div className="mt-2 flex items-center gap-3">
       <div className="relative flex-1">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400 dark:text-zinc-500" />
         <input
           type="text"
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Search an ingredient..."
-          className="w-full rounded-full border border-zinc-200 bg-zinc-50/80 px-3 py-2 text-sm text-zinc-900 shadow-sm outline-none ring-0 transition placeholder:text-zinc-400 focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:placeholder:text-zinc-500"
+          className="w-full rounded-full border border-zinc-200 bg-zinc-50/80 pl-8 pr-3 py-2 text-sm text-zinc-900 shadow-sm outline-none ring-0 transition placeholder:text-zinc-400 focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:placeholder:text-zinc-500"
         />
         {search && (
           <button
