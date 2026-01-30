@@ -15,6 +15,8 @@ export type ListRecipesParams = {
   category?: string | null;
   ingredient?: string | null;
   maxCookTime?: number | null;
+  favoritesOnly?: boolean;
+  userId?: string | null;
 };
 
 export async function listRecipes({
@@ -25,7 +27,21 @@ export async function listRecipes({
   category,
   ingredient,
   maxCookTime,
+  favoritesOnly,
+  userId,
 }: ListRecipesParams): Promise<RecipeListResult> {
+  if (favoritesOnly && !userId) {
+    return {
+      data: [],
+      pagination: {
+        page,
+        pageSize,
+        total: 0,
+        totalPages: 1,
+      },
+    };
+  }
+
   const where: Prisma.RecipeWhereInput = {};
 
   if (q && q.trim().length > 0) {
@@ -67,6 +83,89 @@ export async function listRecipes({
   if (typeof maxCookTime === 'number' && !Number.isNaN(maxCookTime)) {
     where.cookTimeMinutes = { lte: maxCookTime };
   }
+
+  if (favoritesOnly && userId) {
+    const [total, favorites] = await Promise.all([
+      prisma.favorite.count({
+        where: {
+          userId,
+          recipe: where,
+        },
+      }),
+      prisma.favorite.findMany({
+        where: {
+          userId,
+          recipe: where,
+        },
+        orderBy: { createdAt: 'desc' },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        select: {
+          recipe: {
+            select: {
+              id: true,
+              slug: true,
+              title: true,
+              summary: true,
+              imageUrl: true,
+              prepTimeMinutes: true,
+              cookTimeMinutes: true,
+              difficulty: true,
+              categories: {
+                take: 1,
+                orderBy: {
+                  category: {
+                    name: 'asc',
+                  },
+                },
+                select: {
+                  category: {
+                    select: {
+                      name: true,
+                    },
+                  },
+                },
+              },
+              videos: {
+                select: { id: true },
+                take: 1,
+              },
+            },
+          },
+        },
+      }),
+    ]);
+
+    const recipes = favorites
+      .map((favorite) => favorite.recipe)
+      .filter((recipe): recipe is NonNullable<(typeof favorites)[number]['recipe']> => Boolean(recipe));
+
+    const totalPages = Math.max(Math.ceil(total / pageSize), 1);
+
+    const data: RecipeSummary[] = recipes.map((recipe) => ({
+      id: recipe.id,
+      slug: recipe.slug,
+      title: recipe.title,
+      summary: recipe.summary,
+      imageUrl: recipe.imageUrl,
+      prepTimeMinutes: recipe.prepTimeMinutes,
+      cookTimeMinutes: recipe.cookTimeMinutes,
+      difficulty: recipe.difficulty,
+      primaryCategory: recipe.categories[0]?.category.name ?? null,
+      hasVideo: (recipe.videos?.length ?? 0) > 0,
+    }));
+
+    return {
+      data,
+      pagination: {
+        page,
+        pageSize,
+        total,
+        totalPages,
+      },
+    };
+  }
+
   const [total, recipes] = await Promise.all([
     prisma.recipe.count({ where }),
     prisma.recipe.findMany({
