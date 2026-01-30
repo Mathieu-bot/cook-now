@@ -1,3 +1,5 @@
+import { ChefHat } from 'lucide-react';
+
 type Props = {
   selectedCount: number;
 };
@@ -16,8 +18,8 @@ export function CookNowHeader({ selectedCount }: Props) {
           Search and pick what you have on hand. We&apos;ll use this list to find matching recipes.
         </p>
       </div>
-      <div className="mt-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
-        <span className="h-2 w-2 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+      <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+        <ChefHat className="h-3 w-3" />
         <span>{selectedCount} selected</span>
       </div>
     </div>
