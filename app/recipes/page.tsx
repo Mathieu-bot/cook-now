@@ -6,6 +6,7 @@ import { PageContainer } from '@/components/layout/PageContainer';
 import { RecipeSearchForm } from '@/features/recipes/components/RecipeSearchForm';
 import { RecipesPagination } from '@/features/recipes/components/RecipesPagination';
 import { RecipeFiltersBar } from '@/features/recipes/components/RecipeFiltersBar';
+import { getCurrentUser } from '@/lib/auth';
 
 const DEFAULT_PAGE_SIZE = 12;
 
@@ -17,6 +18,7 @@ type PageSearchParams = {
   category?: string;
   ingredient?: string;
   maxCookTime?: string;
+  favoritesOnly?: string;
 };
 
 type PageProps = {
@@ -25,6 +27,7 @@ type PageProps = {
 
 export default async function RecipesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
+  const user = await getCurrentUser();
 
   const page = Math.max(Number(resolvedSearchParams.page) || 1, 1);
   const pageSize = Math.min(
@@ -40,6 +43,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
     maxCookTimeRaw && !Number.isNaN(Number(maxCookTimeRaw))
       ? Number(maxCookTimeRaw)
       : undefined;
+  const favoritesOnly = resolvedSearchParams.favoritesOnly === '1';
 
   const { data: recipes, pagination } = await listRecipes({
     page,
@@ -49,6 +53,8 @@ export default async function RecipesPage({ searchParams }: PageProps) {
     category,
     ingredient,
     maxCookTime,
+    favoritesOnly,
+    userId: favoritesOnly && user ? user.id : null,
   });
 
   return (
@@ -88,6 +94,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
         category={category}
         ingredient={ingredient}
         maxCookTime={maxCookTime}
+        favoritesOnly={favoritesOnly}
       />
     </PageContainer>
   );
