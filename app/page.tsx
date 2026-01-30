@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ChefHat, Utensils, Carrot, Clock } from 'lucide-react';
 import { listRecipes } from '@/features/recipes/recipes.queries';
 import { RecipeCard } from '@/features/recipes/components/RecipeCard';
 import { PageContainer } from '@/components/layout/PageContainer';
@@ -28,26 +29,31 @@ export default async function Home() {
           <div className="flex flex-wrap gap-3 pt-2 justify-center">
             <Link
               href="/cook-now"
-              className="inline-flex items-center rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background shadow-sm transition hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background shadow-sm transition hover:opacity-90"
             >
-              Use my ingredients
+              <Utensils className="h-4 w-4" />
+              <span>Use my ingredients</span>
             </Link>
             <Link
               href="/recipes"
-              className="inline-flex items-center rounded-full border border-zinc-300 px-4 py-2 text-sm text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900"
             >
-              Browse all recipes
+              <ChefHat className="h-4 w-4" />
+              <span>Browse all recipes</span>
             </Link>
           </div>
           <div className="mt-3 flex flex-wrap gap-2 text-xs justify-center text-zinc-600 dark:text-zinc-400">
-            <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-900">
-              Decide what to cook in minutes
+            <span className="inline-flex items-center gap-2 rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-900">
+              <Clock className="h-3.5 w-3.5" />
+              <span>Decide what to cook in minutes</span>
             </span>
-            <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-900">
-              Start from what&apos;s already in your fridge
+            <span className="inline-flex items-center gap-2 rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-900">
+              <Carrot className="h-3.5 w-3.5" />
+              <span>Start from what&apos;s already in your fridge</span>
             </span>
-            <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-900">
-              Reduce food waste without overthinking it
+            <span className="inline-flex items-center gap-2 rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-900">
+              <Utensils className="h-3.5 w-3.5" />
+              <span>Reduce food waste without overthinking it</span>
             </span>
           </div>
         </div>
