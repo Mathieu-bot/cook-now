@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Carrot, ChefHat } from 'lucide-react';
 import type { IngredientDetail } from '../ingredients.types';
 
 type Props = {
@@ -11,8 +12,9 @@ export function IngredientHeader({ ingredient, displayName }: Props) {
     <header className="flex flex-col gap-4 border-b border-zinc-200 pb-4 dark:border-zinc-800 md:flex-row md:items-center md:justify-between">
       <div className="space-y-3">
         <div className="space-y-1">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-            Ingredient spotlight
+          <p className="flex items-center gap-1 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+            <Carrot className="h-3.5 w-3.5" />
+            <span>Ingredient spotlight</span>
           </p>
           <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
             {displayName}
@@ -64,9 +66,10 @@ export function IngredientHeader({ ingredient, displayName }: Props) {
         )}
         <Link
           href={`/recipes?ingredient=${encodeURIComponent(ingredient.name)}`}
-          className="inline-flex items-center justify-center rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900"
         >
-          Cook with {displayName}
+          <ChefHat className="h-3.5 w-3.5" />
+          <span>Cook with {displayName}</span>
         </Link>
       </div>
     </header>
