@@ -1,3 +1,4 @@
+import { ArrowRight, Layers, ListOrdered, Tag } from 'lucide-react';
 import Link from 'next/link';
 import type { RecipeDetail } from '../recipes.types';
 
@@ -9,8 +10,9 @@ export function RecipeDetailSidebar({ recipe }: Props) {
   return (
     <aside className="space-y-6 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
       <div>
-        <h2 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-          Ingredients
+        <h2 className="mb-2 flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+          <ListOrdered className="h-4 w-4 text-emerald-500" />
+          <span>Ingredients</span>
         </h2>
         {recipe.ingredients.length === 0 ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">No ingredients listed.</p>
@@ -25,9 +27,10 @@ export function RecipeDetailSidebar({ recipe }: Props) {
                 </span>
                 <Link
                   href={`/ingredients/${encodeURIComponent(item.name)}`}
-                  className="text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-300"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-300"
                 >
-                  {item.name}
+                  <span>{item.name}</span>
+                  <ArrowRight className="h-3 w-3" />
                 </Link>
               </li>
             ))}
@@ -39,7 +42,10 @@ export function RecipeDetailSidebar({ recipe }: Props) {
         <div className="space-y-3 text-xs text-zinc-600 dark:text-zinc-400">
           {recipe.categories.length > 0 && (
             <div className="space-y-1">
-              <p className="font-medium">Categories</p>
+              <p className="flex items-center gap-1.5 font-medium">
+                <Layers className="h-3 w-3 text-zinc-500" />
+                <span>Categories</span>
+              </p>
               <div className="flex flex-wrap gap-2">
                 {recipe.categories.map((category) => (
                   <span
@@ -54,7 +60,10 @@ export function RecipeDetailSidebar({ recipe }: Props) {
           )}
           {recipe.tags.length > 0 && (
             <div className="space-y-1">
-              <p className="font-medium">Tags</p>
+              <p className="flex items-center gap-1.5 font-medium">
+                <Tag className="h-3 w-3 text-zinc-500" />
+                <span>Tags</span>
+              </p>
               <div className="flex flex-wrap gap-2">
                 {recipe.tags.map((tag) => (
                   <span
