@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
+import { Carrot } from 'lucide-react';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { listIngredients } from '@/features/ingredients/ingredients.queries';
 import { RecipeSearchForm } from '@/features/recipes/components/RecipeSearchForm';
@@ -49,8 +50,9 @@ export default async function IngredientsPage({ searchParams }: PageProps) {
     <PageContainer>
       <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Ingredients
+          <h1 className="flex items-center gap-2 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+            <Carrot className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
+            <span>Ingredients</span>
           </h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
             Explore all the little things that make our recipes tasty.
