@@ -1,3 +1,4 @@
+import { ArrowRight, ChefHat, Info, Search, SearchX } from 'lucide-react';
 import Link from 'next/link';
 import { RecipeCard } from '@/features/recipes/components/RecipeCard';
 import type { CookNowSuggestion } from '@/features/recipes/recipes.types';
@@ -29,15 +30,19 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
           <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-emerald-300 dark:text-emerald-300">
             Step 2
           </p>
-          <h2 className="mt-1 text-sm font-semibold tracking-tight text-emerald-50 dark:text-zinc-50">
-            Recipes you can cook now
+          <h2 className="mt-1 flex items-center gap-2 text-sm font-semibold tracking-tight text-emerald-50 dark:text-zinc-50">
+            <ChefHat className="h-4 w-4 text-emerald-300" />
+            <span>Recipes you can cook now</span>
           </h2>
         </div>
         {hasQuery && (
-          <p className="max-w-[200px] text-right text-[11px] text-emerald-100/90 dark:text-emerald-100/90">
-            {hasSuggestions
-              ? `Showing ${suggestions.length} recipe${suggestions.length > 1 ? 's' : ''}.`
-              : 'No matches yet for this selection.'}
+          <p className="flex max-w-[220px] items-center justify-end gap-1 text-right text-[11px] text-emerald-100/90 dark:text-emerald-100/90">
+            <Search className="h-3 w-3" />
+            <span>
+              {hasSuggestions
+                ? `Showing ${suggestions.length} recipe${suggestions.length > 1 ? 's' : ''}.`
+                : 'No matches yet for this selection.'}
+            </span>
           </p>
         )}
       </div>
@@ -45,6 +50,9 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
       <div className="flex-1 px-4 pb-4 pt-3">
         {!hasQuery && (
           <div className="flex h-full flex-col items-center justify-center rounded-xl bg-black/10 px-6 py-8 text-center text-sm text-emerald-50/90 dark:bg-zinc-900/80">
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-900/40">
+              <Search className="h-5 w-5 text-emerald-200" />
+            </div>
             <p>
               Start by selecting a few ingredients on the left to discover what you can cook.
             </p>
@@ -53,6 +61,9 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
 
         {hasQuery && !hasSuggestions && (
           <div className="flex h-full flex-col items-center justify-center rounded-xl bg-amber-500/15 px-6 py-8 text-center text-sm text-amber-50 dark:bg-amber-500/20">
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/40">
+              <SearchX className="h-5 w-5" />
+            </div>
             <p>
               We couldn&apos;t find any recipes that use these ingredients. Try fewer items or more generic ingredients.
             </p>
@@ -73,18 +84,22 @@ export function CookNowResultsPanel({ ingredients, suggestions }: Props) {
             </div>
             <div className="flex flex-wrap items-center justify-between gap-3 text-[11px] text-emerald-100/80 dark:text-zinc-400">
               {bestMatch && (
-                <p>
-                  Top match uses{' '}
-                  <span className="font-semibold text-emerald-200 dark:text-emerald-300">{usedCount}</span>{' '}
-                  of your ingredients
-                  {totalCount ? ` (${missingCount} missing on ${totalCount})` : ''}.
+                <p className="inline-flex items-center gap-1.5">
+                  <Info className="h-3 w-3" />
+                  <span>
+                    Top match uses{' '}
+                    <span className="font-semibold text-emerald-200 dark:text-emerald-300">{usedCount}</span>{' '}
+                    of your ingredients
+                    {totalCount ? ` (${missingCount} missing on ${totalCount})` : ''}.
+                  </span>
                 </p>
               )}
               <Link
                 href="/recipes"
-                className="text-[11px] font-medium text-emerald-200 underline-offset-4 hover:text-emerald-100 hover:underline dark:text-emerald-300 dark:hover:text-emerald-200"
+                className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-200 underline-offset-4 hover:text-emerald-100 hover:underline dark:text-emerald-300 dark:hover:text-emerald-200"
               >
-                See all recipes
+                <span>See all recipes</span>
+                <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
           </div>
