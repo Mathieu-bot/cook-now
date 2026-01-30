@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { AlertCircle, Loader2, LogIn, UserPlus, X } from 'lucide-react';
 import type { AuthUser } from '@/features/auth/hooks/authApi';
 import { login, register } from '@/features/auth/hooks/authApi';
 
@@ -31,6 +32,11 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
   const isLogin = mode === 'login';
   const title = isLogin ? 'Log in to Cook Now' : 'Create your Cook Now account';
   const primaryLabel = isLogin ? 'Log in' : 'Create account';
+  const primaryIcon = isLogin ? (
+    <LogIn className="h-4 w-4" />
+  ) : (
+    <UserPlus className="h-4 w-4" />
+  );
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -78,13 +84,17 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center justify-between gap-2 border-b border-zinc-100 pb-3 dark:border-zinc-800">
-          <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{title}</h2>
+          <h2 className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+            {primaryIcon}
+            <span>{title}</span>
+          </h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-2 py-1 text-xs text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800 dark:hover:bg-zinc-900"
+            className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800 dark:hover:bg-zinc-900"
           >
-            Close
+            <X className="h-3 w-3" />
+            <span>Close</span>
           </button>
         </div>
         
@@ -114,7 +124,10 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
           </div>
 
           {error && (
-            <p className="text-xs text-red-500 dark:text-red-400">{error}</p>
+            <p className="inline-flex items-center gap-1 text-xs text-red-500 dark:text-red-400">
+              <AlertCircle className="h-3 w-3" />
+              <span>{error}</span>
+            </p>
           )}
 
           <button
@@ -122,7 +135,17 @@ export function AuthModal({ open, mode, onModeChange, onClose, onAuthSuccess }: 
             disabled={isSubmitting}
             className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300"
           >
-            {isSubmitting ? (isLogin ? 'Logging in…' : 'Creating account…') : primaryLabel}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-1.5 h-3 w-3 animate-spin" />
+                <span>{isLogin ? 'Logging in…' : 'Creating account…'}</span>
+              </>
+            ) : (
+              <>
+                <span className="mr-1.5">{primaryIcon}</span>
+                <span>{primaryLabel}</span>
+              </>
+            )}
           </button>
 
           <p className="pt-1 text-center text-[11px] text-zinc-500 dark:text-zinc-400">
