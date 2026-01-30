@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRecipeFilters } from '../hooks/useRecipeFilters';
+import { Funnel } from 'lucide-react';
 
 export function RecipeFiltersBar() {
   const {
@@ -27,8 +28,9 @@ export function RecipeFiltersBar() {
     <section className="mt-4 rounded-2xl border border-zinc-200 bg-white/80 p-4 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950/70 dark:text-zinc-200">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
-            Filters
+          <p className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
+            <Funnel className="h-3 w-3" />
+            <span>Filters</span>
           </p>
           {hasActiveFilters && (
             <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
@@ -77,6 +79,23 @@ export function RecipeFiltersBar() {
           }}
           className="h-9 min-w-[160px] rounded-full border border-zinc-300 bg-white px-3 text-xs shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900"
         />
+        <button
+          type="button"
+          onClick={() =>
+            setFilters(
+              { favoritesOnly: !filters.favoritesOnly },
+              { resetPage: true },
+            )
+          }
+          className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[11px] font-medium transition ${
+            filters.favoritesOnly
+              ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-400 dark:bg-emerald-950 dark:text-emerald-300'
+              : 'border-zinc-300 bg-white text-zinc-700 hover:border-emerald-400 hover:text-emerald-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200'
+          }`}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <span>Favorites only</span>
+        </button>
       </div>
 
       {hasActiveFilters && (
@@ -102,6 +121,21 @@ export function RecipeFiltersBar() {
               className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
             >
               <span>Ingredient: {filters.ingredient}</span>
+              <span className="text-xs">×</span>
+            </button>
+          )}
+          {filters.favoritesOnly && (
+            <button
+              type="button"
+              onClick={() =>
+                setFilters(
+                  { favoritesOnly: false },
+                  { resetPage: true },
+                )
+              }
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+            >
+              <span>Favorites only</span>
               <span className="text-xs">×</span>
             </button>
           )}
