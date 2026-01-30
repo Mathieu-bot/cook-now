@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { LogIn, LogOut, UserPlus } from 'lucide-react';
 import { AuthModal } from './AuthModal';
 import type { AuthUser } from '@/features/auth/hooks/authApi';
 import { getCurrentUser, logout } from '@/features/auth/hooks/authApi';
@@ -63,16 +64,18 @@ export function HeaderAuthActions() {
           <button
             type="button"
             onClick={() => openModal('login')}
-            className="rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-zinc-50"
+            className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-zinc-50"
           >
-            Log in
+            <LogIn className="h-3.5 w-3.5" />
+            <span>Log in</span>
           </button>
           <button
             type="button"
             onClick={() => openModal('register')}
-            className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-700"
           >
-            Sign up
+            <UserPlus className="h-3.5 w-3.5" />
+            <span>Sign up</span>
           </button>
         </>
       ) : (
@@ -86,9 +89,10 @@ export function HeaderAuthActions() {
           <button
             type="button"
             onClick={handleLogout}
-            className="text-[11px] text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="inline-flex items-center gap-1.5 text-[11px] text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
-            Logout
+            <LogOut className="h-3.5 w-3.5" />
+            <span>Logout</span>
           </button>
         </>
       )}
