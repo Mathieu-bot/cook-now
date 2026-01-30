@@ -1,4 +1,5 @@
 import type { PaginationMeta } from '../recipes.types';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
   pagination: PaginationMeta;
@@ -10,6 +11,7 @@ type Props = {
   ingredient?: string;
   maxCookTime?: number;
   basePath?: string;
+  favoritesOnly?: boolean;
 };
 
 export function RecipesPagination({
@@ -22,6 +24,7 @@ export function RecipesPagination({
   ingredient,
   maxCookTime,
   basePath,
+  favoritesOnly,
 }: Props) {
   if (pagination.totalPages <= 1) return null;
 
@@ -35,12 +38,15 @@ export function RecipesPagination({
     if (targetPage > 1) params.set('page', String(targetPage));
     if (pageSize !== basePageSize) params.set('pageSize', String(pageSize));
     if (q) params.set('q', q);
-     if (difficulty) params.set('difficulty', difficulty);
-     if (category) params.set('category', category);
-     if (ingredient) params.set('ingredient', ingredient);
-     if (typeof maxCookTime === 'number' && !Number.isNaN(maxCookTime)) {
-       params.set('maxCookTime', String(maxCookTime));
-     }
+    if (difficulty) params.set('difficulty', difficulty);
+    if (category) params.set('category', category);
+    if (ingredient) params.set('ingredient', ingredient);
+    if (typeof maxCookTime === 'number' && !Number.isNaN(maxCookTime)) {
+      params.set('maxCookTime', String(maxCookTime));
+    }
+    if (favoritesOnly) {
+      params.set('favoritesOnly', '1');
+    }
     const qs = params.toString();
     return qs ? `${base}?${qs}` : base;
   };
@@ -54,24 +60,26 @@ export function RecipesPagination({
         <a
           href={hasPrev ? buildPageLink(pagination.page - 1) : '#'}
           aria-disabled={!hasPrev}
-          className={`rounded-md px-3 py-1.5 ${
+          className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 ${
             hasPrev
               ? 'border border-zinc-300 bg-white hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800'
               : 'cursor-not-allowed border border-transparent text-zinc-400 dark:text-zinc-600'
           }`}
         >
-          Previous
+          <ChevronLeft className="h-4 w-4" />
+          <span>Previous</span>
         </a>
         <a
           href={hasNext ? buildPageLink(pagination.page + 1) : '#'}
           aria-disabled={!hasNext}
-          className={`rounded-md px-3 py-1.5 ${
+          className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 ${
             hasNext
               ? 'border border-zinc-300 bg-white hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800'
               : 'cursor-not-allowed border border-transparent text-zinc-400 dark:text-zinc-600'
           }`}
         >
-          Next
+          <span>Next</span>
+          <ChevronRight className="h-4 w-4" />
         </a>
       </div>
     </nav>
