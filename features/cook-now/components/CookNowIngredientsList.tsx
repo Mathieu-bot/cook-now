@@ -1,3 +1,4 @@
+import { Check, ScrollText, SearchX, X } from 'lucide-react';
 import type { CookNowIngredientOption } from '../cookNow.types';
 
 type Props = {
@@ -55,7 +56,7 @@ export function CookNowIngredientsList({
                   </div>
                   {isSelected && (
                     <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-300">
-                      ✓
+                      <Check className="h-4 w-4" />
                     </span>
                   )}
                 </button>
@@ -63,8 +64,9 @@ export function CookNowIngredientsList({
             })}
 
             {visibleIngredients.length === 0 && (
-              <p className="col-span-full py-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
-                No ingredients match your search.
+              <p className="col-span-full flex items-center justify-center gap-2 py-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
+                <SearchX className="h-4 w-4" />
+                <span>No ingredients match your search.</span>
               </p>
             )}
           </div>
@@ -77,8 +79,9 @@ export function CookNowIngredientsList({
         )}
       </div>
 
-      <p className="text-right text-[10px] text-zinc-400 dark:text-zinc-500">
-        Scroll to see more ingredients
+      <p className="flex items-center justify-end gap-1 text-right text-[10px] text-zinc-400 dark:text-zinc-500">
+        <ScrollText className="h-3 w-3" />
+        <span>Scroll to see more ingredients</span>
       </p>
 
       {hasSelection && (
@@ -91,7 +94,7 @@ export function CookNowIngredientsList({
               onClick={() => toggleIngredient(name)}
               className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-medium text-zinc-800 transition hover:bg-emerald-50 hover:text-emerald-800 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-emerald-900/40 dark:hover:text-emerald-200"
             >
-              <span className="text-[10px] text-zinc-400 dark:text-zinc-500">×</span>
+              <X className="h-3 w-3 text-zinc-400 dark:text-zinc-500" />
               <span>{name}</span>
             </button>
           ))}
