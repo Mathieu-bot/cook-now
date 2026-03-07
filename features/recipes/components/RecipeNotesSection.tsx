@@ -11,13 +11,20 @@ import {
   Save,
   User,
 } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { AuthModal } from '@/components/auth/AuthModal';
+import type { AuthUser } from '@/features/auth/hooks/authApi';
 import { useRecipeNote } from '../hooks/useRecipeNote';
 
 export function RecipeNotesSection() {
+  const router = useRouter();
   const pathname = usePathname();
   const match = pathname.match(/^\/recipes\/([^/]+)/);
   const slug = match?.[1] ?? null;
+
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
 
   const {
     noteText,
@@ -47,13 +54,28 @@ export function RecipeNotesSection() {
         <p className="text-xs text-zinc-500 dark:text-zinc-400">
           Sign in to keep your own notes for this recipe. They are private and only visible to you.
         </p>
-        <a
-          href="/auth/login"
+        <button
+          type="button"
+          onClick={() => {
+            setAuthMode('login');
+            setIsAuthModalOpen(true);
+          }}
           className="inline-flex items-center gap-1.5 justify-center rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-700"
         >
           <LogIn className="h-3 w-3" />
           <span>Go to login</span>
-        </a>
+        </button>
+
+        <AuthModal
+          open={isAuthModalOpen}
+          mode={authMode}
+          onModeChange={setAuthMode}
+          onClose={() => setIsAuthModalOpen(false)}
+          onAuthSuccess={(_: AuthUser) => {
+            setIsAuthModalOpen(false);
+            router.refresh();
+          }}
+        />
       </section>
     );
   }
