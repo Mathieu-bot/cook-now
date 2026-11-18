@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 import { ChefHat, Utensils, Carrot, Clock } from 'lucide-react';
 import { listRecipes } from '@/features/recipes/recipes.queries';
